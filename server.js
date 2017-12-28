@@ -1,19 +1,34 @@
 const express = require('express');
+const hbs = require('hbs')
 
 let app = express();
- 
+
+hbs.registerPartials(__dirname + '/views/partials')
+app.set('view engine', hbs); //this tells node that we want to use that template engine
+
+hbs.registerHelper('getCurrentYear', () => {
+    return new Date().getFullYear()
+});
+hbs.registerHelper('screamIt', (text) => {
+    return text.toUpperCase();
+});
+
+
 app.get('/', (req, res) => {
     // res.send('<b>Hey Express !</b>')
-    res.send([{
-
-        name: 'Rotimi',
-        Age: 23,
-        likes: ['Chess', '9gag', 'Coding', 'Reading',]
-    }])  
+    res.render('home.hbs', {
+        welcome: 'Welcome here Visitor',
+        pageTitle: 'Home Page ',
+        title: 'home'    
+    })
 });
 
 app.get('/about', (req, res) => {
-    res.send('<b>Welcome to the about page </b>')
+    res.render('about.hbs', {
+        pageTitle: 'About Page',
+        title: 'about'
+
+    });
 })
 
 app.get('/bad', (req, res) => {
