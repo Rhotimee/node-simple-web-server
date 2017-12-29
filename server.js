@@ -52,6 +52,14 @@ app.get('/about', (req, res) => {
     });
 })
 
+app.get('/projects', (req, res) => {
+    res.render('projects.hbs', {
+        pageTitle: 'My projects',
+        title: 'project'
+
+    });
+})
+
 app.get('/bad', (req, res) => {
     res.send({
         errorMessage: 'There is no data here'
